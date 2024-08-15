@@ -28,19 +28,24 @@ public class LyricService {
 
     public Response getLyric(Map<String, Object> pathParametersMap) {
 
-        Allure.step("Teste no service",()->{
-            Allure.parameter("Artista", pathParametersMap.get("ARTIST"));
-            Allure.parameter("Musica", pathParametersMap.get("TITLE"));
-        });
-
-
+        
         Response resposta = RestAssured
                 .given()
                 .spec(requestSpecBuilder.build())
                 .pathParams(pathParametersMap)
-                .filter(new AllureRestAssured())
+                .filter(new AllureRestAssured()
+                        .setRequestAttachmentName("Requisição Realizada")
+                        .setResponseAttachmentName("Resposta Retornada"))
                 .log().all()
                 .get();
+
+                Allure.step("Teste no service", () -> {
+                    Allure.parameter("Artista", pathParametersMap.get("ARTIST"));
+                    Allure.parameter("Musica", pathParametersMap.get("TITLE"));
+                    
+                    Allure.addAttachment("REQUISICAO -> ", resposta.asPrettyString());
+                });
+
         return resposta;
     }
 

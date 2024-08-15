@@ -3,7 +3,6 @@ package treinamento_restassured.testCase;
 import java.util.HashMap;
 import java.util.Map;
 import io.qameta.allure.*;
-import io.qameta.allure.Step;
 import io.qameta.allure.model.Status;
 
 import org.apache.http.HttpStatus;
@@ -36,8 +35,8 @@ public class LyricTestCase {
         
 
         Allure.step("Preparação dos Dados",()->{
-            pathParametersMap.put("ARTIST", "Coldplay");
-            pathParametersMap.put("TITLE", "Adventure of a Lifetime"); 
+            pathParametersMap.put("ARTIST", "Emicida");
+            pathParametersMap.put("TITLE", "Amarelo"); 
           //  Allure.parameter("Artista", pathParametersMap.get("ARTIST"));
            // Allure.parameter("Musica", pathParametersMap.get("TITLE"));
         });

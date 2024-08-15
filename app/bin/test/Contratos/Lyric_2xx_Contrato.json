@@ -1,0 +1,12 @@
+{
+    "title": "Lyric JsonSchema para teste de Contrato 2xx",
+    "type": "object",
+    "properties": {
+        "lyrics": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "lyrics"
+    ]
+}
