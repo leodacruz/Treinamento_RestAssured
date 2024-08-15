@@ -54,6 +54,20 @@ dependencies {
     // https://mvnrepository.com/artifact/io.qameta.allure/allure-attachments
     implementation("io.qameta.allure:allure-attachments:2.28.1")
 
+    // https://mvnrepository.com/artifact/io.qameta.allure/allure-java-commons
+    implementation("io.qameta.allure:allure-java-commons:2.29.0")
+
+   // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite-engine
+    implementation("org.junit.platform:junit-platform-suite-engine:1.10.3")
+
+    // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite
+    implementation("org.junit.platform:junit-platform-suite:1.10.3")
+
+    // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite-api
+    implementation("org.junit.platform:junit-platform-suite-api:1.10.3")
+
+    // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-runner
+    implementation("org.junit.platform:junit-platform-runner:1.10.0")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

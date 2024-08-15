@@ -23,6 +23,7 @@ public class LyricValidation {
 
     public void validarStatusCode(int statusCode){
         resposta.then().assertThat().statusCode(statusCode);
+
     }
 
     public void validarContrato(File jsonContrato) {
