@@ -17,7 +17,7 @@ repositories {
 
 dependencies {
     // Use JUnit Jupiter for testing.
-    testImplementation(libs.junit.jupiter)
+    implementation(libs.junit.jupiter)
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
@@ -28,22 +28,22 @@ dependencies {
     implementation("org.freemarker:freemarker:2.3.33")
 
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.10.3")
+    implementation("org.junit.jupiter:junit-jupiter-engine:5.10.3")
 
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.3")
+    implementation("org.junit.jupiter:junit-jupiter-api:5.10.3")
 
     // https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all
-    testImplementation("org.hamcrest:hamcrest-all:1.3")
+    implementation("org.hamcrest:hamcrest-all:1.3")
 
     // https://mvnrepository.com/artifact/io.rest-assured/rest-assured
-    testImplementation("io.rest-assured:rest-assured:5.5.0")
+    implementation("io.rest-assured:rest-assured:5.5.0")
 
     // https://mvnrepository.com/artifact/io.rest-assured/json-schema-validator
     implementation("io.rest-assured:json-schema-validator:5.5.0")
 
     // https://mvnrepository.com/artifact/io.qameta.allure/allure-junit5
-    testImplementation("io.qameta.allure:allure-junit5:2.29.0")
+    implementation("io.qameta.allure:allure-junit5:2.29.0")
     
     // https://mvnrepository.com/artifact/io.qameta.allure/allure-attachments
     implementation("io.qameta.allure:allure-attachments:2.29.0")
@@ -65,7 +65,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "treinamento_restassured.App"
+ //   mainClass = "treinamento_restassured.App"
 }
 
 tasks.named<Test>("test") {
