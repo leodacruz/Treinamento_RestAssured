@@ -72,5 +72,5 @@ gradle-app.setting
 allure-results
 allure-report
 
-
+*.properties
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,java,gradle
