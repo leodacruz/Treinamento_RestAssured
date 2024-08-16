@@ -6,6 +6,7 @@
  */
 
 plugins {
+    id("io.qameta.allure") version "2.12.0"
     // Apply the application plugin to add support for building a CLI application in Java.
     application
 }
@@ -53,21 +54,22 @@ dependencies {
 
     // https://mvnrepository.com/artifact/io.qameta.allure/allure-attachments
     implementation("io.qameta.allure:allure-attachments:2.28.1")
-
+    
     // https://mvnrepository.com/artifact/io.qameta.allure/allure-java-commons
     implementation("io.qameta.allure:allure-java-commons:2.29.0")
-
-   // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite-engine
+    
+    // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite-engine
     implementation("org.junit.platform:junit-platform-suite-engine:1.10.3")
-
+    
     // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite
     implementation("org.junit.platform:junit-platform-suite:1.10.3")
-
+    
     // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite-api
     implementation("org.junit.platform:junit-platform-suite-api:1.10.3")
-
+    
     // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-runner
     implementation("org.junit.platform:junit-platform-runner:1.10.0")
+    
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -82,7 +84,41 @@ application {
  //   mainClass = "treinamento_restassured.App"
 }
 
-tasks.named<Test>("test") {
-    // Use JUnit Platform for unit tests.
+
+tasks.test {
     useJUnitPlatform()
+    include("**/LyricRegressaoTestSuite.class")
 }
+
+//allureRawResultElements.outgoing.artifact(file("...")) {
+ //   builtBy(test)
+//}
+
+tasks.register("generateAllureReport") {
+
+
+val buildDirPath = Paths.get(buildDir.toURI())
+val parentDirPath = buildDirPath.parent.parent // Volta duas pastas
+
+println("Caminho do diretório pai: $parentDirPath")
+
+    //  println("teste -> $buildDir\..\..")
+  //  dependsOn("test")
+   // dependsOn("allureReport")
+   // doLast {
+             //   println("teste -> $buildDir\..\..")
+
+      //  exec {
+      //      commandLine("cmd.exe", "/c", "dir")
+       // }
+    //}
+}
+
+//allure {
+ //       version = "2.12.0"
+  //  }
+    
+//tasks.named<io.qameta.allure.gradle.task.AllureReport>("allureReport") {
+ //       resultsDir.set(file("$buildDir/allure-results"))
+ //       reportDir.set(file("$buildDir/allure-report"))
+ //   }
