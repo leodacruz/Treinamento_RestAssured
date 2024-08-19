@@ -6,7 +6,8 @@
  */
 
 plugins {
-    id("io.qameta.allure") version "2.12.0"
+    id("io.qameta.allure") version "2.12.0" //Base para funcionar o Allure
+    id("io.qameta.allure-report") version "2.12.0"
     // Apply the application plugin to add support for building a CLI application in Java.
     application
 }
@@ -69,7 +70,6 @@ dependencies {
     
     // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-runner
     implementation("org.junit.platform:junit-platform-runner:1.10.0")
-    
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -79,46 +79,22 @@ java {
     }
 }
 
-application {
-    // Define the main class for the application.
- //   mainClass = "treinamento_restassured.App"
+application { 
 }
-
 
 tasks.test {
     useJUnitPlatform()
     include("**/LyricRegressaoTestSuite.class")
 }
 
-//allureRawResultElements.outgoing.artifact(file("...")) {
- //   builtBy(test)
-//}
-
 tasks.register("generateAllureReport") {
-
-
-val buildDirPath = Paths.get(buildDir.toURI())
-val parentDirPath = buildDirPath.parent.parent // Volta duas pastas
-
-println("Caminho do diretório pai: $parentDirPath")
-
-    //  println("teste -> $buildDir\..\..")
-  //  dependsOn("test")
-   // dependsOn("allureReport")
-   // doLast {
-             //   println("teste -> $buildDir\..\..")
-
-      //  exec {
-      //      commandLine("cmd.exe", "/c", "dir")
-       // }
-    //}
-}
-
-//allure {
- //       version = "2.12.0"
-  //  }
+    dependsOn(tasks.test)
+    val inputPath = "${projectDir}/build/allure-results"
+    val outputPath = "${projectDir}/build/allure-report"
     
-//tasks.named<io.qameta.allure.gradle.task.AllureReport>("allureReport") {
- //       resultsDir.set(file("$buildDir/allure-results"))
- //       reportDir.set(file("$buildDir/allure-report"))
- //   }
+    doLast {
+        exec {
+            commandLine("cmd", "/c", "allure", "generate", inputPath,"--single-file", "--clean", "-o", outputPath)
+        }
+    }
+}
