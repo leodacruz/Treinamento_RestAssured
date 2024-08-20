@@ -82,7 +82,8 @@ java {
 application { 
 }
 
-tasks.test {
+
+tasks.test{
     useJUnitPlatform()
     include("**/LyricRegressaoTestSuite.class")
 }
