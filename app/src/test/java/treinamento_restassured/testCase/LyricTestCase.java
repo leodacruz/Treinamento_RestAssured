@@ -26,13 +26,13 @@ public class LyricTestCase {
     }
 
     @Test
-    @DisplayName("Teste leo")
-    @Description("Teste leo Descricao")
-    @Owner("eu mesmo")
+    @DisplayName("Validar sucesso ao pesquisar uma Musica")
     @Tag("Regressao")
     public void testLeo() {
-        Allure.step("Iniciando o Teste");
+        Allure.description("Desccricao bonita do teste que pode ser lida de um JSON !!!!!!!!!!!!!!"); //individual, caso eu bote isso na classe ele vai sobrescrever
+        Allure.label("owner", "Leonardo Cruz QA"); //individual, caso eu bote isso na classe ele vai sobrescrever
         
+        Allure.step("Iniciando o Teste");  //usado para aparecer no relatorio na aba de execucao do teste        
 
         Allure.step("Preparação dos Dados",()->{
             pathParametersMap.put("ARTIST", "Emicida");

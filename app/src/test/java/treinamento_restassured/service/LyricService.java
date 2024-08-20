@@ -21,31 +21,20 @@ public class LyricService {
         requestSpecBuilder = new RequestSpecBuilder();
         requestSpecBuilder
                 .setBaseUri(rotaEndpoint.getProperty("baseUriProducao"))
-                .setBasePath(rotaEndpoint.getProperty("basePath"))
                 .setContentType(ContentType.JSON)
                 .setRelaxedHTTPSValidation();
     }
 
     public Response getLyric(Map<String, Object> pathParametersMap) {
-
-        
+        Allure.parameter("Artista:", pathParametersMap.get("ARTIST"));
+        Allure.parameter("Musica:", pathParametersMap.get("TITLE"));
         Response resposta = RestAssured
                 .given()
                 .spec(requestSpecBuilder.build())
                 .pathParams(pathParametersMap)
-                .filter(new AllureRestAssured()
-                        .setRequestAttachmentName("Requisição Realizada")
-                        .setResponseAttachmentName("Resposta Retornada"))
                 .log().all()
-                .get();
-
-                Allure.step("Teste no service", () -> {
-                    Allure.parameter("Artista", pathParametersMap.get("ARTIST"));
-                    Allure.parameter("Musica", pathParametersMap.get("TITLE"));
-                    
-                    Allure.addAttachment("REQUISICAO -> ", resposta.asPrettyString());
-                });
-
+                .filter(new AllureRestAssured())
+                .get(rotaEndpoint.getProperty("basePath"));
         return resposta;
     }
 

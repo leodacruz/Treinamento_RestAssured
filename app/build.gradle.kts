@@ -6,6 +6,7 @@
  */
 
 plugins {
+    id("java")
     id("io.qameta.allure") version "2.12.0" //Base para funcionar o Allure
     id("io.qameta.allure-report") version "2.12.0"
     // Apply the application plugin to add support for building a CLI application in Java.
@@ -99,3 +100,9 @@ tasks.register("generateAllureReport") {
         }
     }
 }
+
+tasks.register<Delete>("cleanAllureResults") {
+    description = "Limpa os resultados dos testes na pasta allure-results."
+    group = "cleaning"
+ delete(file("build/allure-results"))
+ }
