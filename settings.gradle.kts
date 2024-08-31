@@ -11,4 +11,4 @@ plugins {
 }
 
 rootProject.name = "Treinamento_RestAssured"
-include("app")
+include("Lyrics_ovh")

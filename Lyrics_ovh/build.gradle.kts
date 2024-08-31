@@ -7,7 +7,7 @@
 
 plugins {
     id("java")
-    id("io.qameta.allure") version "2.12.0" //Base para funcionar o Allure
+    id("io.qameta.allure") version "2.12.0"
     id("io.qameta.allure-report") version "2.12.0"
     // Apply the application plugin to add support for building a CLI application in Java.
     application
