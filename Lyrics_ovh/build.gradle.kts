@@ -6,6 +6,9 @@
  */
 
 plugins {
+    id("java")
+    id("io.qameta.allure") version "2.12.0"
+    id("io.qameta.allure-report") version "2.12.0"
     // Apply the application plugin to add support for building a CLI application in Java.
     application
 }
@@ -17,7 +20,7 @@ repositories {
 
 dependencies {
     // Use JUnit Jupiter for testing.
-    testImplementation(libs.junit.jupiter)
+    implementation(libs.junit.jupiter)
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
@@ -28,22 +31,22 @@ dependencies {
     implementation("org.freemarker:freemarker:2.3.33")
 
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.10.3")
+    implementation("org.junit.jupiter:junit-jupiter-engine:5.10.3")
 
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.3")
+    implementation("org.junit.jupiter:junit-jupiter-api:5.10.3")
 
     // https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all
-    testImplementation("org.hamcrest:hamcrest-all:1.3")
+    implementation("org.hamcrest:hamcrest-all:1.3")
 
     // https://mvnrepository.com/artifact/io.rest-assured/rest-assured
-    testImplementation("io.rest-assured:rest-assured:5.5.0")
+    implementation("io.rest-assured:rest-assured:5.5.0")
 
     // https://mvnrepository.com/artifact/io.rest-assured/json-schema-validator
     implementation("io.rest-assured:json-schema-validator:5.5.0")
 
     // https://mvnrepository.com/artifact/io.qameta.allure/allure-junit5
-    testImplementation("io.qameta.allure:allure-junit5:2.29.0")
+    implementation("io.qameta.allure:allure-junit5:2.29.0")
     
     // https://mvnrepository.com/artifact/io.qameta.allure/allure-attachments
     implementation("io.qameta.allure:allure-attachments:2.29.0")
@@ -53,7 +56,21 @@ dependencies {
 
     // https://mvnrepository.com/artifact/io.qameta.allure/allure-attachments
     implementation("io.qameta.allure:allure-attachments:2.28.1")
-
+    
+    // https://mvnrepository.com/artifact/io.qameta.allure/allure-java-commons
+    implementation("io.qameta.allure:allure-java-commons:2.29.0")
+    
+    // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite-engine
+    implementation("org.junit.platform:junit-platform-suite-engine:1.10.3")
+    
+    // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite
+    implementation("org.junit.platform:junit-platform-suite:1.10.3")
+    
+    // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite-api
+    implementation("org.junit.platform:junit-platform-suite-api:1.10.3")
+    
+    // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-runner
+    implementation("org.junit.platform:junit-platform-runner:1.10.0")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -63,12 +80,29 @@ java {
     }
 }
 
-application {
-    // Define the main class for the application.
-    mainClass = "treinamento_restassured.App"
+application { 
 }
 
-tasks.named<Test>("test") {
-    // Use JUnit Platform for unit tests.
+
+tasks.test{
     useJUnitPlatform()
+    include("**/LyricRegressaoTestSuite.class")
 }
+
+tasks.register("generateAllureReport") {
+    dependsOn(tasks.test)
+    val inputPath = "${projectDir}/build/allure-results"
+    val outputPath = "${projectDir}/build/allure-report"
+    
+    doLast {
+        exec {
+            commandLine("cmd", "/c", "allure", "generate", inputPath,"--single-file", "--clean", "-o", outputPath)
+        }
+    }
+}
+
+tasks.register<Delete>("cleanAllureResults") {
+    description = "Limpa os resultados dos testes na pasta allure-results."
+    group = "cleaning"
+ delete(file("build/allure-results"))
+ }
